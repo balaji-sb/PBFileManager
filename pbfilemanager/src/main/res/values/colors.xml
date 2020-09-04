@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="textColor">#121212</color>
+    <color name="textColorJarvis">#00E5FF</color>
+    <color name="subTextColorJarvis">#5500E5FF</color>
+</resources>

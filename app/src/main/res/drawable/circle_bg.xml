@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:bottom="-1dp">
+        <shape
+            android:angle="0"
+            android:innerRadiusRatio="4.5"
+            android:shape="ring"
+            android:thicknessRatio="5"
+            android:type="sweep"
+            android:useLevel="false">
+            <stroke
+                android:width="30dp"
+                android:color="#00E5FF"
+                android:dashWidth="70dp"
+                android:dashGap="30dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape
+            android:angle="0"
+            android:innerRadiusRatio="2.9"
+            android:shape="ring"
+            android:thicknessRatio="90"
+            android:type="sweep"
+            android:useLevel="false">
+            <solid android:color="#00E5FF" />
+        </shape>
+    </item>
+
+    <item>
+        <shape
+            android:angle="0"
+            android:innerRadiusRatio="100"
+            android:shape="ring"
+            android:thicknessRatio="9"
+            android:type="linear"
+            android:useLevel="false">
+            <solid android:color="#00E5FF" />
+        </shape>
+    </item>
+
+    <item>
+        <rotate
+            android:fromDegrees="270"
+            android:toDegrees="270">
+            <shape
+                android:angle="0"
+                android:innerRadiusRatio="2.05"
+                android:shape="ring"
+                android:thicknessRatio="1"
+                android:type="sweep"
+                android:useLevel="false">
+                <stroke
+                    android:width="10dp"
+                    android:color="#00E5FF"
+                    android:dashWidth="2dp"
+                    android:dashGap="2dp" />
+                <corners android:radius="5dp" />
+            </shape>
+        </rotate>
+    </item>
+
+</layer-list>

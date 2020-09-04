@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:angle="0"
+            android:innerRadiusRatio="2.1"
+            android:shape="ring"
+            android:thicknessRatio="95"
+            android:type="sweep"
+            android:useLevel="false">
+            <stroke
+                android:width="2dp"
+                android:color="#00E5FF"
+                android:dashWidth="2dp"
+                android:dashGap="2dp" />
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/background">
+        <shape
+            android:angle="0"
+            android:innerRadiusRatio="2.5"
+            android:shape="ring"
+            android:thicknessRatio="11"
+            android:type="sweep"
+            android:useLevel="false">
+            <stroke android:color="#00E5FF" android:width="1dp"/>
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress" >
+        <rotate
+            android:fromDegrees="270"
+            android:toDegrees="270">
+            <shape
+                android:angle="0"
+                android:innerRadiusRatio="2.78"
+                android:thicknessRatio="16"
+                android:shape="ring"
+                android:useLevel="true"
+                android:type="sweep">
+                <solid android:color="#ee00E5FF" />
+                <corners android:radius="10dp"/>
+            </shape>
+        </rotate>
+    </item>
+
+
+</layer-list>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!--<item android:bottom="-1dp">
+        <shape
+            android:angle="0"
+            android:innerRadiusRatio="3.1"
+            android:shape="ring"
+            android:thicknessRatio="95"
+            android:type="sweep"
+            android:useLevel="false"
+            >
+            <solid android:color="@color/cardview_shadow_start_color" />
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+-->
+    <item android:id="@android:id/background">
+        <shape
+            android:angle="0"
+            android:innerRadiusRatio="3"
+            android:shape="ring"
+            android:thicknessRatio="25"
+            android:type="sweep"
+            android:useLevel="false">
+            <solid android:color="@color/circleBg" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress" >
+        <rotate
+            android:fromDegrees="270"
+            android:toDegrees="270">
+            <shape
+                android:angle="0"
+                android:innerRadiusRatio="3"
+                android:thicknessRatio="25"
+                android:shape="ring"
+                android:useLevel="true"
+                android:type="sweep">
+                <solid android:color="@color/colorPrimary" />
+            </shape>
+        </rotate>
+    </item>
+
+
+</layer-list>

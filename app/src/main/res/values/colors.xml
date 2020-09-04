@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0461BF</color>
+    <color name="colorPrimaryDark">#fefefe</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="textColor">#121212</color>
+    <color name="textColorJarvis">#00E5FF</color>
+    <color name="subTextColorJarvis">#5500E5FF</color>
+    <color name="subTextColor">#9A9B9E</color>
+    <color name="circleBg">#98C0E4</color>
+</resources>

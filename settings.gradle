@@ -1,0 +1,3 @@
+include ':pbfilemanager'
+include ':app'
+rootProject.name = "PBFileManager"
