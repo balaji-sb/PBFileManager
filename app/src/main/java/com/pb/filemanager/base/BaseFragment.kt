@@ -116,6 +116,33 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    /**
+     * Check runtime permissions
+     */
+
+    fun checkPermission(permission: Array<String> = emptyArray()): Boolean {
+        activity?.let {
+            if (it is BaseActivity) {
+                return it.checkPermission(permission)
+            }
+        }
+        return false
+    }
+
+    /**
+     * ask runtime permissions
+     */
+
+    fun askPermission(permission: Array<String> = emptyArray()) {
+        activity?.let {
+            if (it is BaseActivity) it.askPermission(permission)
+        }
+    }
+
+    open fun onBackPressed(): Boolean {
+        return false
+    }
+
     abstract fun getLayoutResource(): Int
 
     abstract fun getScreenName(): String

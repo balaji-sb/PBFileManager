@@ -4,28 +4,30 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Bundle
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pb.filemanager.R
 import com.pb.filemanager.base.BaseFragment
 import com.pb.filemanager.utils.Const
-import com.pb.filemanager.view.adapter.PBStorageAdapter
+import com.pb.filemanager.view.adapter.PBFileAdapter
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.layout_recycler.*
 import pb.file.manager.BaseFileManager
 import pb.file.manager.interfaces.PBFileManager
-import pb.file.manager.model.StorageModel
+import pb.file.manager.model.FileModel
+import java.io.File
 
 /**
  * Created by balaji on 3/9/20 9:13 AM
  */
 
 
-class DashboardFragment : BaseFragment(), PBStorageAdapter.ItemClickListener {
+class FilesFragment : BaseFragment(), PBFileAdapter.ItemClickListener {
 
     private lateinit var mPBFileManager: PBFileManager
-    private var pbStorageAdapter: PBStorageAdapter? = null
+    private var pBFileAdapter: PBFileAdapter? = null
     private var broadcastReceiver: BroadcastReceiver? = null
+    private var parentPath = ""
+    private var currentPath: String? = null
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_dashboard
@@ -37,23 +39,31 @@ class DashboardFragment : BaseFragment(), PBStorageAdapter.ItemClickListener {
 
     override fun initValues() {
         mPBFileManager = BaseFileManager.getInstance(context)
-        pbStorageAdapter = PBStorageAdapter(this)
+        pBFileAdapter = PBFileAdapter(this)
     }
 
     override fun setUpViews() {
         genericRecycler?.apply {
             layoutManager = LinearLayoutManager(this.context)
-            adapter = pbStorageAdapter
+            adapter = pBFileAdapter
         }
-        updateAdapter()
+        if (checkPermission(Const.reqPermissions)) {
+            arguments?.apply {
+                getString(Const.FILE_PATH, null)?.let { path ->
+                    parentPath = path
+                    updatePathTitle()
+                    updateAdapter()
+                }
+            }
+        } else askPermission()
     }
 
     private fun updateAdapter() {
-        pbStorageAdapter?.setDirectoryItems(getAvailableStorage())
+        pBFileAdapter?.setFileAdapterItems(retrieveDirectories())
     }
 
-    private fun getAvailableStorage(): ArrayList<StorageModel> {
-        return mPBFileManager.getAvailableStorage()
+    private fun retrieveDirectories(): ArrayList<FileModel> {
+        return mPBFileManager.getFilesByPath(currentPath ?: parentPath)
     }
 
     private fun storageScanIntentFilter(): IntentFilter {
@@ -91,10 +101,39 @@ class DashboardFragment : BaseFragment(), PBStorageAdapter.ItemClickListener {
         stopReceiver()
     }
 
-    override fun setOnItemClickListener(model: StorageModel) {
-        val bundle = Bundle()
-        bundle.putString(Const.FILE_PATH, model.path)
-        navigateFragmentWithBackStack(FilesFragment(), bundle)
+    override fun setOnItemClickListener(model: FileModel) {
+        if (model.isDirectory) {
+            currentPath = model.path
+            updatePathTitle()
+            updateAdapter()
+        }
+    }
+
+    override fun onBackPressed(): Boolean {
+        return if (parentPath == currentPath) false
+        else {
+            val currentFile = File(currentPath!!)
+            currentPath = currentFile.parent
+            updatePathTitle()
+            updateAdapter()
+            true
+        }
+    }
+
+    private fun updatePathTitle() {
+        var formattedFilePath = ""
+        if (currentPath == null) {
+            formattedFilePath = parentPath.replace(parentPath, "Home >")
+        } else {
+            currentPath?.apply {
+                formattedFilePath = if (this == parentPath) {
+                    replace(parentPath, "Home >")
+                } else {
+                    replace(parentPath, "Home").replace("/", " > ")
+                }
+            }
+        }
+        pathTitleTxt.text = formattedFilePath
     }
 
 }

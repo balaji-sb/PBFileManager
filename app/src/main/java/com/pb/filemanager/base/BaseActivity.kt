@@ -93,6 +93,9 @@ abstract class BaseActivity : AppCompatActivity() {
      * @param permission
      */
     open fun askPermission(permission: Array<String> = emptyArray()) {
+        if (permission.isEmpty()) {
+            throw Exception("No permission requested")
+        }
         ActivityCompat.requestPermissions(
             (mContext as Activity),
             permission,
@@ -106,6 +109,7 @@ abstract class BaseActivity : AppCompatActivity() {
      * @param permission
      * @return
      */
+
     open fun checkPermission(permission: Array<String> = emptyArray()): Boolean {
         if (permission.isEmpty()) {
             throw Exception("No permission requested")
@@ -118,6 +122,20 @@ abstract class BaseActivity : AppCompatActivity() {
             ) == PackageManager.PERMISSION_GRANTED
         }
         return isPermissionGranted
+    }
+
+    override fun onBackPressed() {
+        var handled = false
+        val availableFragments = supportFragmentManager.fragments
+        availableFragments.forEach { fragment ->
+            if (fragment is BaseFragment) {
+                handled = fragment.onBackPressed()
+                if (handled) return
+            }
+        }
+
+        if (!handled)
+            super.onBackPressed()
     }
 
     abstract fun getLayoutResource(): Int

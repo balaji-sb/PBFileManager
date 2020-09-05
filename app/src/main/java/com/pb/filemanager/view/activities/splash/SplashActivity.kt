@@ -16,10 +16,6 @@ import com.pb.filemanager.view.activities.dashboard.DashboardActivity
 
 class SplashActivity : BaseActivity() {
 
-    private val reqPermissions = arrayOf(
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
-    )
     private val handler by lazy { Handler(Looper.myLooper()!!) }
 
     override fun getLayoutResource(): Int {
@@ -35,9 +31,9 @@ class SplashActivity : BaseActivity() {
     }
 
     private val runnable = Runnable {
-        if (checkPermission(reqPermissions)) {
-            navigateActivity(DashboardActivity::class)
-        } else askPermission(reqPermissions)
+        if (checkPermission(Const.reqPermissions)) {
+            navigateActivity(DashboardActivity::class, isNewActivity = true)
+        } else askPermission(Const.reqPermissions)
     }
 
     override fun onPause() {
@@ -59,8 +55,8 @@ class SplashActivity : BaseActivity() {
                 }
             }
             if (isGrant) {
-                navigateActivity(DashboardActivity::class)
-            } else askPermission(reqPermissions)
+                navigateActivity(DashboardActivity::class, isNewActivity = true)
+            } else askPermission(Const.reqPermissions)
         }
     }
 
